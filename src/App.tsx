@@ -8,12 +8,19 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Setting} from "./components/Setting/Setting";
-import state from "./redux/state";
+import {RootStateType} from "./redux/state";
 
-export const App = () => {
-    let dialogs = state.dialogsPage.dialogs
-    let messages = state.dialogsPage.messages
-    let posts = state.profilePage.posts
+
+type AppPropsType = {
+    state:RootStateType
+    addPost:(postMessage:string)=>void
+    updateNewPostText:(newText:string)=>void
+}
+
+export const App = (props:AppPropsType) => {
+    let dialogs = props.state.dialogsPage.dialogs
+    let messages = props.state.dialogsPage.messages
+    let posts = props.state.profilePage.posts
     return (
         <BrowserRouter>
             <div className="app-wrapper">
@@ -22,7 +29,10 @@ export const App = () => {
                 <div className='app-wrapper-content'>
                     <Route exact render={() => <Dialogs dialogs={dialogs} messages={messages}/>}
                            path='/dialogs'/>
-                    <Route exact render={() => <Profile posts={posts}/>} path='/profile'/>
+                    <Route exact render={() => <Profile addPost={props.addPost}
+                                                        profilePage={props.state.profilePage}
+                                                        updateNewPostText={props.updateNewPostText}
+                    />} path='/profile'/>
                     <Route exact component={News} path='/news'/>
                     <Route exact component={Music} path='/music'/>
                     <Route exact component={Setting} path='/setting'/>

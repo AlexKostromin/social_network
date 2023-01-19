@@ -1,25 +1,38 @@
-import React from 'react';
+import React, {MouseEventHandler, useState} from 'react';
 import {Post} from "./Post/Post";
 import s from './MyPosts.module.css'
-import {PostType} from "../../../redux/state";
+import {PostType, ProfilePageType} from "../../../redux/state";
 
 type MyPostType = {
-    posts:Array<PostType>
+    posts: Array<PostType>
+    addPost:(postMessage:string)=>void
+    newPostText:string
+    updateNewPostText:(newText:string)=>void
 }
 
 export const MyPosts: React.FC<MyPostType> = (props) => {
 
-    let postElements = props.posts.map((el) => <Post message={el.message} likes={el.likesCount}/>)
+    let postElements = props.posts.map((el, id) => <Post message={el.message} likes={el.likesCount}/>)
+    let newPostElement = React.createRef<HTMLTextAreaElement>()
+    let addPost = () => {
+        let text = newPostElement.current!.value
+        props.addPost(text)
+        newPostElement.current!.value = ''
+    }
+
+    let onPostChange = () => {
+
+    }
 
     return (
         <div className={s.postBlock}>
             <h3>My posts</h3>
             <div>
                 <div>
-                    <textarea></textarea>
+                    <textarea ref={newPostElement} value={props.newPostText} onChange={onPostChange}/>
                 </div>
                 <div>
-                    <button>Add post</button>
+                    <button onClick={addPost}>Add post</button>
                 </div>
             </div>
             <div className={s.posts}>
