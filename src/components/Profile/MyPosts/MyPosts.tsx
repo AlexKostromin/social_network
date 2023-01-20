@@ -5,9 +5,9 @@ import {PostType, ProfilePageType} from "../../../redux/state";
 
 type MyPostType = {
     posts: Array<PostType>
-    addPost:(postMessage:string)=>void
-    newPostText:string
-    updateNewPostText:(newText:string)=>void
+    addPost: () => void
+    newPostText: string
+    updateNewPostText: (newText: string) => void
 }
 
 export const MyPosts: React.FC<MyPostType> = (props) => {
@@ -15,13 +15,12 @@ export const MyPosts: React.FC<MyPostType> = (props) => {
     let postElements = props.posts.map((el, id) => <Post message={el.message} likes={el.likesCount}/>)
     let newPostElement = React.createRef<HTMLTextAreaElement>()
     let addPost = () => {
-        let text = newPostElement.current!.value
-        props.addPost(text)
-        newPostElement.current!.value = ''
+        props.addPost()
     }
 
     let onPostChange = () => {
-
+        let text = newPostElement.current!.value
+        props.updateNewPostText(text)
     }
 
     return (
