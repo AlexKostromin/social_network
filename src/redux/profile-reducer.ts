@@ -1,11 +1,6 @@
 
-export type addPostActionCreatorType = {
-    type: 'ADD-POST'
-}
-export type updateNewPostTextActionCreatorType = {
-    type: 'UPDATE-NEW-POST-TEXT'
-    newText:string
-}
+/*export type addPostActionCreatorType = ReturnType<typeof addPostActionCreator>
+export type updateNewPostTextActionCreatorType = ReturnType<typeof updateNewPostTextActionCreator>*/
 export type ProfilePageType = {
     posts: Array<PostType>
     newPostText: string
@@ -16,7 +11,7 @@ export type PostType = {
     likesCount: number
 }
 
-export type ProfileActionsType = addPostActionCreatorType | updateNewPostTextActionCreatorType
+export type ProfileActionsType = ReturnType<typeof addPostActionCreator> | ReturnType<typeof updateNewPostTextActionCreator>
 
 let initialState =  {
     posts: [
@@ -46,11 +41,11 @@ export const profileReducer = (state:ProfilePageType = initialState, action:Prof
 }
 
 
-export const addPostActionCreator = () => ({type: 'ADD-POST'})
+export const addPostActionCreator = () => ({type: 'ADD-POST'}as const)
 
 export const updateNewPostTextActionCreator = (text: string) => {
     return {
         type: 'UPDATE-NEW-POST-TEXT',
         newText: text
-    }
+    }as const
 }
