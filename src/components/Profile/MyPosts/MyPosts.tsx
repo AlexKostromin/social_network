@@ -1,26 +1,29 @@
 import React, {MouseEventHandler, useState} from 'react';
 import {Post} from "./Post/Post";
 import s from './MyPosts.module.css'
-import {PostType, ProfilePageType} from "../../../redux/state";
+import {PostType} from "../../../redux/store";
+import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profile-reducer";
 
 type MyPostType = {
     posts: Array<PostType>
-    addPost: () => void
+    dispatch: (action: any) => void
     newPostText: string
-    updateNewPostText: (newText: string) => void
+
 }
+
 
 export const MyPosts: React.FC<MyPostType> = (props) => {
 
     let postElements = props.posts.map((el, id) => <Post message={el.message} likes={el.likesCount}/>)
     let newPostElement = React.createRef<HTMLTextAreaElement>()
     let addPost = () => {
-        props.addPost()
+        props.dispatch({addPostActionCreator})
     }
 
     let onPostChange = () => {
         let text = newPostElement.current!.value
-        props.updateNewPostText(text)
+        let action = updateNewPostTextActionCreator(text)
+        props.dispatch({action})
     }
 
     return (

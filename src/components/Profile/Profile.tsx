@@ -2,22 +2,20 @@ import React from 'react';
 import s from './Prodile.module.css'
 import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {PostType, ProfilePageType} from "../../redux/state";
+import {PostType, ProfilePageType} from "../../redux/store";
 
 
 type ProfileType = {
     profilePage: ProfilePageType
-    addPost:()=>void
-    updateNewPostText:(newText:string)=>void
+    dispatch: (action: any) => void
 }
 
 export const Profile: React.FC<ProfileType> = (props) => {
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts addPost={props.addPost} posts={props.profilePage.posts}
+            <MyPosts dispatch={props.dispatch} posts={props.profilePage.posts}
                      newPostText={props.profilePage.newPostText}
-                     updateNewPostText={props.updateNewPostText}
             />
         </div>
     );
