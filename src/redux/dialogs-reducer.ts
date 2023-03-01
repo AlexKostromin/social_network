@@ -1,4 +1,3 @@
-
 export type DialogsPageType = {
     dialogs: Array<DialogsType>,
     messages: Array<MessageType>,
@@ -14,11 +13,11 @@ export type MessageType = {
 }
 
 export type sendMessageActionCreatorType = {
-    type:'SEND--MESSAGE'
+    type: 'SEND--MESSAGE'
 }
 export type updateNewMessageBodyActionCreatorType = {
-    type:'UPDATE-NEW-MESSAGE-BODY'
-    body:string
+    type: 'UPDATE-NEW-MESSAGE-BODY'
+    body: string
 }
 
 type DialogsActionsType = sendMessageActionCreatorType | updateNewMessageBodyActionCreatorType
@@ -38,7 +37,7 @@ let initialState = {
     newMessageBody: ''
 }
 
-export const dialogsReducer = (state:DialogsPageType = initialState, action:DialogsActionsType):DialogsPageType => {
+export const dialogsReducer = (state: DialogsPageType = initialState, action: DialogsActionsType): DialogsPageType => {
     switch (action.type) {
         case 'UPDATE-NEW-MESSAGE-BODY':
             state.newMessageBody = action.body

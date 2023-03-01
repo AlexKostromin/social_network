@@ -5,9 +5,9 @@ import {PostType} from "../../../redux/store";
 
 type MyPostType = {
     posts: Array<PostType>
-    newPostText: (text:string)=>void
     addPost:()=>void
-
+    updateNewPostText:(text:string)=>void
+    newPostText:string
 }
 
 
@@ -21,7 +21,7 @@ export const MyPosts: React.FC<MyPostType> = (props) => {
 
     let onPostChange = () => {
         let text = newPostElement.current!.value
-        props.newPostText(text)
+        props.updateNewPostText(text)
     }
 
     return (

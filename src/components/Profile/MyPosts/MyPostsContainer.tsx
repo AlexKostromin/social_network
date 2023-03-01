@@ -1,28 +1,25 @@
-import React, {MouseEventHandler, useState} from 'react';
-import {PostType} from "../../../redux/store";
+import React from 'react';
 import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profile-reducer";
 import {MyPosts} from "./MyPosts";
+import {connect} from "react-redux";
 
-type MyPostType = {
-    posts: Array<PostType>
-    dispatch: (action: any) => void
-    newPostText: string
 
+const mapStateToProps = (state:any) => {
+    return {
+        newPostText: state.newPostText,
+        posts: state.posts
+    }
+}
+const mapDispatchToProps = (dispatch:any) => {
+    return {
+       addPost:()=> {
+           dispatch(addPostActionCreator())
+       },
+       updateNewPostText: (text:string)=> {
+           dispatch(updateNewPostTextActionCreator(text))
+       }
+    }
 }
 
-
-export const MyPostsContainers: React.FC<MyPostType> = (props) => {
-    let addPost = () => {
-        props.store.dispatch({addPostActionCreator})
-    }
-
-    let onPostChange = (text:string) => {
-    let action = updateNewPostTextActionCreator(text)
-      props.dispatch({action})
-    }
-
-    return (
-        <MyPosts newPostText={onPostChange} addPost={addPost} posts={props.posts}/>
-    );
-};
+export const MyPostsContainers = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
 
