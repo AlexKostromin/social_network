@@ -20,7 +20,7 @@ export type updateNewMessageBodyActionCreatorType = {
     body: string
 }
 
-type DialogsActionsType = sendMessageActionCreatorType | updateNewMessageBodyActionCreatorType
+export type DialogsActionsType = sendMessageActionCreatorType | updateNewMessageBodyActionCreatorType
 
 let initialState = {
     dialogs: [
@@ -39,14 +39,19 @@ let initialState = {
 
 export const dialogsReducer = (state: DialogsPageType = initialState, action: DialogsActionsType): DialogsPageType => {
     switch (action.type) {
-        case 'UPDATE-NEW-MESSAGE-BODY':
-            state.newMessageBody = action.body
-            return state
+        case 'UPDATE-NEW-MESSAGE-BODY': {
+            return  {
+                ...state,
+                newMessageBody: action.body
+            }
+        }
         case 'SEND--MESSAGE':
             let body = state.newMessageBody
-            state.newMessageBody = ''
-            state.messages.push({id: 6, message: body})
-            return state
+             return  {
+                ...state,
+                newMessageBody:'',
+                messages: [...state.messages, {id: 6, message: body}]
+            }
         default:
             return state
     }

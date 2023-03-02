@@ -13,8 +13,8 @@ type DialogsPropsType = {
 
 export const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
-    let dialogsElements = props.dialogsPage.dialogs.map((el, id) => <DialogItem id={el.id} name={el.name}/>)
-    let messagesElements = props.dialogsPage.messages.map((el, id) => <Message id={el.id} message={el.message}/>)
+    let dialogsElements = props.dialogsPage.dialogs.map((el, id) => <DialogItem id={el.id} name={el.name} key={el.id}/>)
+    let messagesElements = props.dialogsPage.messages.map((el, id) => <Message id={el.id} message={el.message} key={el.id}/>)
     let newMessageBody = props.dialogsPage.newMessageBody
     const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let body = e.currentTarget.value
