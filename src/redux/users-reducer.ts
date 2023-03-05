@@ -1,31 +1,62 @@
+export type followACType = {
+    type: 'FOLLOW'
+    userId: number
+}
+export type unfollowACType = {
+    type: 'UNFOLLOW'
+    userId: number
+}
+export type setUsersType = {
+    type: 'SET_USERS'
+    users:Array<usersType>
+}
+export type usersActionsType = followACType | unfollowACType | setUsersType
 
-
-export type ProfileActionsType =
-    ReturnType<typeof addPostActionCreator>
-    | ReturnType<typeof updateNewPostTextActionCreator>
+export type UsersPageType = {
+    users:Array<usersType>
+}
+export type usersType = {
+    id:number
+    photoUrl:string
+    followed:boolean
+    fullName:string
+    status:string
+    location: locationType
+}
+export type locationType = {
+    city:string
+    country:string
+}
 
 let initialState = {
     users: [
-        {id: 1, fullName: 'Sanya', status: 'I am boss', location: {city:'Bryansk', country:'Russia'}},
-        {id: 2, fullName: 'Olya', status: 'I am boss', location: {city:'Moscow', country:'Russia'}},
-        {id: 3, fullName: 'Vova', status: 'I am boss', location: {city:'Minsk', country:'Belarus'}},
+
     ]
 }
 
-export const usersReducer = (state: any = initialState, action: ProfileActionsType): any => {
+export const usersReducer = (state: UsersPageType = initialState, action: usersActionsType): UsersPageType => {
     switch (action.type) {
-
+        case "FOLLOW":
+            return {
+                ...state,
+                users: state.users.map(el => el.id === action.userId ? {...el, followed:true} : el)
+            }
+            case "UNFOLLOW":
+            return {
+                ...state,
+                users: state.users.map(el => el.id === action.userId ? {...el, followed:false} : el)
+            }
+        case 'SET_USERS':
+            return {
+                ...state,
+                users:[...state.users, ...action.users]
+            }
         default:
             return state
     }
 }
 
 
-export const addPostActionCreator = () => ({type: 'ADD-POST'} as const)
-
-export const updateNewPostTextActionCreator = (text: string) => {
-    return {
-        type: 'UPDATE-NEW-POST-TEXT',
-        newText: text
-    } as const
-}
+export const followAC = (userId: number) => ({type: 'FOLLOW', userId} as const)
+export const unfollowAC = (userId: number) => ({type: 'UNFOLLOW', userId} as const)
+export const setUserAC = (users:Array<usersType>) => ({type:'SET_USERS', users})
