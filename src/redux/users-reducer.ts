@@ -14,14 +14,21 @@ export type usersActionsType = followACType | unfollowACType | setUsersType
 
 export type UsersPageType = {
     users:Array<usersType>
+    pageSize:number
+    totalUsersCount:number
+    currentPage:number
 }
 export type usersType = {
     id:number
-    photoUrl:string
+    photos:photosType
     followed:boolean
-    fullName:string
+    name:string
     status:string
     location: locationType
+}
+export type photosType = {
+    small: string
+    large:string
 }
 export type locationType = {
     city:string
@@ -30,8 +37,10 @@ export type locationType = {
 
 let initialState = {
     users: [
-
-    ]
+    ],
+    pageSize: 5,
+    totalUsersCount:0,
+    currentPage:1
 }
 
 export const usersReducer = (state: UsersPageType = initialState, action: usersActionsType): UsersPageType => {
