@@ -1,7 +1,7 @@
 import React, {MouseEventHandler, useState} from 'react';
 import {Post} from "./Post/Post";
 import s from './MyPosts.module.css'
-import {PostType} from "../../../redux/store";
+import {PostType} from "../../../redux/profile-reducer";
 
 type MyPostType = {
     posts: Array<PostType>

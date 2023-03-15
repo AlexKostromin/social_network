@@ -118,7 +118,7 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     }
 }*/
 
-export const UsersContainers = connect(mapStateToProps,
+export default  connect(mapStateToProps,
     {
         follow,
         unfollow,

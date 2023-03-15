@@ -1,4 +1,3 @@
-import {RootStateType} from "./store";
 
 let initialState = {}
 
