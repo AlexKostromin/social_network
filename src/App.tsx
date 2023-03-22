@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {Header} from "./components/Header/Header";
+
 import {Navbar} from "./components/Navbar/Navbar";
 import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./components/News/News";
@@ -9,6 +9,7 @@ import {Setting} from "./components/Setting/Setting";
 import {DialogsContainer} from "./components/Dialogs/DilogsContainer";
 import UsersContainers from "./components/Users/UsersContainers";
 import ProfileContainer from "./components/Profile/ProfileContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
 
 
 type AppPropsType = {
@@ -19,18 +20,18 @@ export const App: React.FC<AppPropsType> = (props) => {
     return (
         <BrowserRouter>
             <div className="app-wrapper">
-                <Header/>
+                <HeaderContainer />
                 <Navbar/>
                 <div className='app-wrapper-content'>
-                    <Route exact render={() => <DialogsContainer
+                    <Route  render={() => <DialogsContainer
                     />}
                            path='/dialogs'/>
-                    <Route exact render={() => <ProfileContainer
-                    />} path='/profile:userId?'/>
-                    <Route exact render={() => <UsersContainers />} path='/users'/>
-                    <Route exact component={News} path='/news'/>
-                    <Route exact component={Music} path='/music'/>
-                    <Route exact component={Setting} path='/setting'/>
+                    <Route  render={() => <ProfileContainer
+                    />} path='/profile/:userId?'/>
+                    <Route  render={() => <UsersContainers />} path='/users'/>
+                    <Route  component={News} path='/news'/>
+                    <Route  component={Music} path='/music'/>
+                    <Route  component={Setting} path='/setting'/>
                     {/*<Profile />*/}
 
                 </div>

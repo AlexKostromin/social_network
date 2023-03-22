@@ -13,7 +13,7 @@ type MyPostType = {
 
 export const MyPosts: React.FC<MyPostType> = (props) => {
 
-    let postElements = props.posts.map((el, id) => <Post message={el.message} likes={el.likesCount}/>)
+    let postElements = props.posts.map((el, id) => <Post message={el.message} likes={el.likesCount} key={el.id}/>)
     let newPostElement = React.createRef<HTMLTextAreaElement>()
     let onAddPost = () => {
         props.addPost()
